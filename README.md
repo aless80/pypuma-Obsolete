@@ -1,7 +1,6 @@
 ## TODO
 s1,s2,t1,t2 are hardcoded  
-rename scripts from panda to puma  
-build the setup  
+rename scripts from panda to puma and rebuild the setup
 rewrite this README  
 
 
