@@ -61,17 +61,17 @@ cd pypuma
 virtualenv pypumaenv #Create a folder for the virtual environment inside the cloned git folder 
 source pypumaenv/bin/activate
 ```
-Installing and running pypuma:
+Installing pypuma:
 ```no-highlight
 (pypumaenv)$ pip install -r requirements.txt
 (pypumaenv)$ python setup.py install #--user
 ```
 
-Complete uninstall:
+Complete uninstall of pypuma:
 ```no-highlight
 (pypuma)$ deactivate	#Exit
 rm -rf pypumaenv
-.. maybe write about uninstalling the setup using --record
+write about uninstalling the setup using --record
 ```
 
 #### Using pip 
