@@ -23,29 +23,29 @@ _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biolog
 ### Panda algorithm
 To find agreement between the three input networks first the responsibility (R) is calculated.  
 
-<img src="https://github.com/aless80/pypuma/raw/develop/img/responsibility.png" height="30">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/responsibility.png" height="30">  
 
 Thereafter availability (A) is calculated.  
 
-<img src="https://github.com/aless80/pypuma/raw/develop/img/availability.png" height="30">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/availability.png" height="30">  
 
 Availability and responsibility are combined with the following formula.  
 
-<img src="https://github.com/aless80/pypuma/raw/develop/img/combine.png" height="30">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/combine.png" height="30">  
 
 Protein cooperativity and gene co-regulatory networks are updated.  
 
-<img src="https://github.com/aless80/pypuma/raw/develop/img/cooperativity.png" height="30">  
-<img src="https://github.com/aless80/pypuma/raw/develop/img/co-regulatory.png" height="30">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/cooperativity.png" height="30">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/co-regulatory.png" height="30">  
 
 P and C are updated to satisfy convergence.  
 
-<img src="https://github.com/aless80/pypuma/raw/develop/img/p.png" height="30">  
-<img src="https://github.com/aless80/pypuma/raw/develop/img/c.png" height="30">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/p.png" height="30">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/c.png" height="30">  
 
 Hamming distance is calculated every iteration.  
 
-<img src="https://github.com/aless80/pypuma/raw/develop/img/hamming.png" height="40">  
+<img src="https://github.com/aless80/pypanda/raw/develop/img/hamming.png" height="40">  
 
 
 ### Installation
@@ -56,7 +56,7 @@ Using [python virtual environment](http://docs.python-guide.org/en/latest/dev/vi
 Cloning git and setting up the [python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/):
 ```no-highlight
 pip install --user pipenv   #Make sure you have Pipenv
-git clone https://github.com/aless80/pypuma.git
+git clone https://github.com/aless80/pypanda.git
 cd pypuma
 virtualenv pypumaenv #Create a folder for the virtual environment inside the cloned git folder 
 source pypumaenv/bin/activate
@@ -77,7 +77,7 @@ write about uninstalling the setup using --record
 #### Using pip 
 Using pip on the user's install directory
 ```no-highlight
-git clone https://github.com/aless80/pypuma.git
+git clone https://github.com/aless80/pypanda.git
 cd pypuma
 python setup.py install --user
 #to run from the command line you will need to make pypuma executable and add the bin directory to your PATH:
@@ -88,7 +88,7 @@ source ~/.bashrc
 ```
 To run PyPuma from Windows (tested on Windows 10) install Git (https://git-scm.com/downloads) and Anaconda Python2.7 (https://www.continuum.io/downloads) and from the Anaconda Prompt run:
 ```no-highlight
-git clone https://github.com/aless80/pypuma.git
+git clone https://github.com/aless80/pypanda.git
 cd pypuma
 python setup.py install
 ```
