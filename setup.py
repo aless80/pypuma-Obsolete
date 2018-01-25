@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-setup(name='pypanda',
+setup(name='pypuma',
     version='0.1',
-    description='Passing attributes between networks for data assimilation to predict regulatory networks.',
-    url='http://github.com/davidvi',
-    author='David van IJzendoorn',
-    author_email='d.g.p.van_ijzendoorn@lumc.nl',
+    description='bla.',
+    url='https://github.com/aless80/PyPuma',
+    author='Alessandro Marin',
+    author_email='AlessandroMarin80@gmail.com',
     license='MIT',
     packages=['pypanda'],
     install_requires=['pandas',
