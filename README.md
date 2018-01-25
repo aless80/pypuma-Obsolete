@@ -17,7 +17,7 @@ _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biolog
 * [Installation](#installation)  
 * [Usage](#usage)  
 * [python](#run-from-python)
-* [Terminal](#run-from-the-terminal)  
+* [Terminal](#run-from-the-terminal)
 * [Results] (#results)
 
 ### Panda algorithm
