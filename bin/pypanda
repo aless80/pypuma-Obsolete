@@ -1,0 +1,104 @@
+#!/usr/bin/env python
+
+'''
+Run PyPanda algorithm from the command line.
+'''
+
+import sys
+# Ale
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import getopt
+import pandas as pd
+from pypanda import Panda
+from pypanda import Lioness
+
+def main(argv):
+    '''
+    Run pypanda.
+    -h help
+    -e (required) expression values
+    -m (optional) pair file of motif edges, when not provided analysis continues with pearson correlation matrix
+    -p (optional) pair file of PPI edges
+    -f (optional) remove missing values (default is Fales)
+    -o (required) output file
+    -q (optional) output lioness single sample network
+    '''
+    #create variables
+    expression_data = None
+    motif = None
+    ppi = None
+    remove_missing = False
+    output_file = None
+    lioness_output_file = None
+    # Ale added s1,s2,t1,t2
+    help_text = 'pypanda options:\n\
+                \t-e (required)<expression_data.txt>\n\
+                \t-m (optional, when not provided Pearson correlation network is used)<motif_data.txt>\n\
+                \t-p (optional)<ppi_data.txt>\n\
+                \t-f (optional)<remove missing (True/False)>\n\
+                \t-o (required)<output_file_name>\n\
+                \t--s1 (required)<s1>\n\
+                \t--s2 (required)<s2>\n\
+                \t--t1 (required)<t1>\n\
+                \t--t2 (required)<t2>\n\
+                \t-q (optional)<lioness_output_file_name>'
+    #get input options
+    try:
+        # Ale added s1,s2,t1,t2.
+        # Ale correct this: for flags to be really optional eg -m and --motif, they should be m (no colon) and 'motif' (no equal sign).
+        opts, args = getopt.getopt(argv, 'he:m:p:f:o:q:s:x:t:z:', ['help', 'expression=', 'motif=', 'ppi=', 'remove=', 'out=', 'outputlioness', 's1=', 's2=', 't1=', 't2='])
+    except getopt.GetoptError:
+        print(help_text)
+        sys.exit()
+    for opt, arg in opts:
+        if opt == '-h':
+            print(help_text)
+            sys.exit()
+        elif opt in ('-e', '--expression'):
+            expression_data = arg
+        elif opt in ('-m', '--motif'):
+            motif = arg
+        elif opt in ('-p', '--ppi'):
+            ppi = arg
+        elif opt in ('-f', '--remove'):
+            if arg == 'True':
+                remove_missing = True
+            elif arg == 'False':
+                remove_missing = False
+            #else: Ale can do input validation here
+        elif opt in ('-o', '--output'):
+            output_file = arg
+        elif opt in ('-q', '--outputlioness'):
+            lioness_output_file = arg
+        # Ale
+        elif opt in ('-s', '--s1'):
+            s1 = int(arg)
+        elif opt in ('-x', '--s2'):
+            s2 = int(arg)
+        elif opt in ('-t', '--t1'):
+            t1 = int(arg)
+        elif opt in ('-z', '--t2'):
+            t2 = int(arg)
+    #check if required options are given
+    if expression_data == None or output_file == None:
+        print('Missing input')
+        print(help_text)
+        sys.exit()
+
+    # Ale: s1, s2, t1, t2 placed before ppi matrix because of syntax (ppi is by default None, and therefore must go after s1, s2, t1, t2 which as far as i know have no default values)
+    #run panda
+    p = Panda(expression_data, motif, s1, s2, t1, t2, ppi, remove_missing=remove_missing)
+    #save results
+    p.save_panda_results(file=output_file)
+    print('Finished Panda run...')
+    #run lioness
+    if lioness_output_file!=None:
+        l = Lioness(p)
+        l.save_lioness_results(file=lioness_output_file)
+        print 'Finished Lioness run...'
+
+    return None
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

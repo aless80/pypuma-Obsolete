@@ -94,7 +94,7 @@ python setup.py install
 ```
 ### Usage
 #### Run from the terminal
-PyPuma can be run directly from the terminal with the following options:
+PyPandas can be run directly from the terminal with the following options:
 ```
 -h help
 -e (required) expression values
@@ -110,11 +110,11 @@ PyPuma can be run directly from the terminal with the following options:
 ```
 To run PyPuma on the example data:
 ```
-pypuma -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_puma.txt -q test_lioness.txt -s1 0 -s2 1 -t1 1 -t2 2
+pypanda -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_puma.txt -q test_lioness.txt -s1 0 -s2 1 -t1 1 -t2 2
 ```
 To reconstruct a single sample Lioness Pearson correlation network:
 ```
-$ pypuma -e ToyData/ToyExpressionData.txt -o test_puma_pearson.txt -q test_lioness_pearson.txt
+$ pypanda -e ToyData/ToyExpressionData.txt -o test_puma_pearson.txt -q test_lioness_pearson.txt
 ```
 #### Run from python
 Fire up your python shell or ipython notebook. 
