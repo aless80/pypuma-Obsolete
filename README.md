@@ -2,7 +2,9 @@
 s1,s2,t1,t2 are hardcoded  
 I renamed scripts from panda to puma and rebuild the setup. I might have forgotten something somewhere  
 Finish renaming all 'panda' to 'puma' int his README.
-rewrite this README. Anaconda nice to mention. Update the example from pandas to puma. update citations and descriptions
+rewrite this README. Anaconda nice to mention. Update the example from pandas to puma. update citations and descriptions. check all links. figures!
+
+Check david's python commands in this README  
 
 ## PyPuma (Python Puma)
 Python implementation of PUMA (PANDA Using MicroRNA Associations)  
@@ -14,8 +16,8 @@ _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biolog
 * [Panda implementation](#puma-algorithm)  
 * [Installation](#installation)  
 * [Usage](#usage)  
-  * [python](#run-from-python)
-  * [Terminal](#run-from-the-terminal)  
+* [python](#run-from-python)
+* [Terminal](#run-from-the-terminal)  
 * [Results] (#results)
 
 ### Panda algorithm
@@ -68,10 +70,12 @@ Installing and running pypuma:
 Complete uninstall:
 ```no-highlight
 (pypuma)$ deactivate	#Exit
-rm -rf ....
+rm -rf pypumaenv
+.. maybe write about uninstalling the setup using --record
 ```
 
-#### Using pip on the user's install directory
+#### Using pip 
+Using pip on the user's install directory
 ```no-highlight
 git clone https://github.com/aless80/pypuma.git
 cd pypuma
