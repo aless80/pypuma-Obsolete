@@ -2,7 +2,7 @@
 s1,s2,t1,t2 are hardcoded  
 I renamed scripts from panda to puma and rebuild the setup. I might have forgotten something somewhere  
 Finish renaming all 'panda' to 'puma' int his README.
-rewrite this README. Anaconda nice to mention. Update the example from pandas to puma
+rewrite this README. Anaconda nice to mention. Update the example from pandas to puma. update citations and descriptions
 
 ## PyPuma (Python Puma)
 Python implementation of PUMA (PANDA Using MicroRNA Associations)  
