@@ -13,7 +13,7 @@ PANDA:
 _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biological Networks to Refine Predicted Interactions, PLoS One, 2013 May 31;8(5):e64832_
 
 ### Table of Contents
-* [Panda implementation](#puma-algorithm)  
+* [Panda implementation](#panda-algorithm)  
 * [Installation](#installation)  
 * [Usage](#usage)  
 * [python](#run-from-python)
