@@ -1,21 +1,17 @@
 ## TODO
 s1,s2,t1,t2 are hardcoded  
-rename scripts from panda to puma and rebuild the setup
-rename all 'panda' to 'puma' int his README and in all scripts
-rewrite this README. Anaconda nice to mention
+I renamed scripts from panda to puma and rebuild the setup. I might have forgotten something somewhere  
+Finish renaming all 'panda' to 'puma' int his README.
+rewrite this README. Anaconda nice to mention. Update the example from pandas to puma
 
-The main script is still called pyp but if you after the install see s1,s2, t1,t2 in the command options for this:  
-pypanda --help  
-you can make sure this is pypuma
+## PyPuma (Python Puma)
+Python implementation of PUMA (PANDA Using MicroRNA Associations)  
 
-
-## PyPanda (Python Panda)
-Python implementation of PANDA (Passing Attributes between Networks for Data Assimilation)  
-
+PANDA: 
 _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biological Networks to Refine Predicted Interactions, PLoS One, 2013 May 31;8(5):e64832_
 
 ### Table of Contents
-* [Panda implementation](#panda-algorithm)  
+* [Panda implementation](#puma-algorithm)  
 * [Installation](#installation)  
 * [Usage](#usage)  
   * [python](#run-from-python)
@@ -106,11 +102,11 @@ PyPuma can be run directly from the terminal with the following options:
 ```
 To run PyPuma on the example data:
 ```
-$ pypuma -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_panda.txt -q test_lioness.txt
+$ pypuma -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_puma.txt -q test_lioness.txt
 ```
 To reconstruct a single sample Lioness Pearson correlation network:
 ```
-$ pypuma -e ToyData/ToyExpressionData.txt -o test_panda_pearson.txt -q test_lioness_pearson.txt
+$ pypuma -e ToyData/ToyExpressionData.txt -o test_puma_pearson.txt -q test_lioness_pearson.txt
 ```
 #### Run from python
 Fire up your python shell or ipython notebook. 
@@ -120,26 +116,26 @@ from pypuma import Puma
 from pypuma import Lioness
 import pandas as pd
 ```
-Run Panda algorithm, leave out motif and PPI data to use Pearson correlation network:
+Run Puma algorithm, leave out motif and PPI data to use Pearson correlation network:
 ```python
-p = Panda('ToyData/ToyExpressionData.txt', 'ToyData/ToyMotifData.txt', 'ToyData/ToyPPIData.txt', remove_missing=False)
+p = Puma('ToyData/ToyExpressionData.txt', 'ToyData/ToyMotifData.txt', 'ToyData/ToyPPIData.txt', remove_missing=False)
 ```
 Save the results:
 ```python
-p.save_panda_results(file = 'Toy_Panda.pairs')
+p.save_puma_results(file = 'Toy_Puma.pairs')
 ```
 Return a network plot:
 ```python
-plot = AnalyzePanda(p)
+plot = AnalyzePuma(p)
 plot.top_network_plot(top=100, file='top_100_genes.png')
 ```
 Calculate indegrees for further analysis:
 ```python
-indegree = p.return_panda_indegree()
+indegree = p.return_puma_indegree()
 ```
 Calculate outdegrees for further analysis:
 ```python
-outdegree = p.return_panda_outdegree()
+outdegree = p.return_puma_outdegree()
 ```
 Run the Lioness algorithm for single sample networks:
 ```python
