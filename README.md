@@ -17,7 +17,7 @@ _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biolog
 * [Panda implementation](#panda-algorithm)  
 * [Installation](#installation)  
 * [Usage](#usage)  
-  * [iPython](#run-from-ipython-notebook)  
+  * [python](#run-from-python)
   * [Terminal](#run-from-the-terminal)  
 * [Results] (#results)
 
@@ -51,6 +51,21 @@ Hamming distance is calculated every iteration.
 
 ### Installation
 PyPanda requires Python 2.7. We recommand the following commands to install PyPanda (on Ubuntu and Debian derived systems, also works on OSX):
+#### Using a virtual environment
+This is the cleanest installation method. First create a folder for the [python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+
+```no-highlight
+pip install --user pipenv   #Make sure you have 
+git clone https://github.com/aless80/pypuma.git
+cd pypuma
+```
+
+```no-highlight
+virtualenv tantrix2
+source tantrix2/bin/activate
+(api_venv)$ pip install requests #note: no sudo!
+```
+
 #### With root access
 ```no-highlight
 git clone https://github.com/davidvi/pypanda.git
@@ -94,7 +109,8 @@ To reconstruct a single sample Lioness Pearson correlation network:
 ```
 $ pypanda -e ToyData/ToyExpressionData.txt -o test_panda_pearson.txt -q test_lioness_pearson.txt
 ```
-#### Run from iPython notebook
+#### Run from python
+Fire up your python shell or ipython notebook. 
 Import PyPanda library:
 ```python
 from pypanda import Panda
