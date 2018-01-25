@@ -55,9 +55,9 @@ PyPanda requires Python 2.7. We recommand the following commands to install PyPa
 This is the cleanest installation method. First create a folder for the [python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
 
 ```no-highlight
-pip install --user pipenv   #Make sure you have 
+pip install --user pipenv   #Make sure you have Pipenv
 git clone https://github.com/aless80/pypuma.git
-cd pypuma
+cd pypuma 					#Use the cloned git folder for the virtual environment
 ```
 
 ```no-highlight
