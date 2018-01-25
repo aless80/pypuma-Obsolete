@@ -8,13 +8,13 @@ import time
 import math
 
 
-class Panda(object):
-    '''Import and run PANDA algorithm.'''
+class Puma(object):
+    '''Import and run Puma algorithm.'''
 
     def __init__(self, expression_file, motif_file, s1, s2, t1, t2, ppi_file=None, remove_missing=False):
         '''Load expression, motif and optional ppi data.'''
 
-        # Ale: store s1, s2, t1, t2 and hope lioness uses the same instance of this Panda class
+        # Ale: store s1, s2, t1, t2 and hope lioness uses the same instance of this Puma class
         self.s1 = s1
         self.s2 = s2
         self.t1 = t1
@@ -45,15 +45,15 @@ class Panda(object):
                 self.__ppi_data_to_matrix()
         # Pearson correlation
         self.correlation_matrix = np.corrcoef(self.expression_matrix)
-        # run panda algorithm
+        # run Puma algorithm
         if self.motif_data is not None:
-            self.panda_network = self.panda_loop(self.correlation_matrix, self.motif_matrix,
+            self.puma_network = self.puma_loop(self.correlation_matrix, self.motif_matrix,
                                                  self.ppi_matrix, step_print=True)
         else:
-            self.panda_network = self.correlation_matrix
+            self.puma_network = self.correlation_matrix
         # create data frame from results
         if self.motif_data is not None:
-            self.__panda_results_data_frame()
+            self.__puma_results_data_frame()
         else:
             self.__pearson_results_data_frame()
         return None
@@ -118,8 +118,8 @@ class Panda(object):
         self.ppi_matrix.ravel()[idx] = self.ppi_data[2]
         return None
 
-    def panda_loop(self, correlation_matrix, motif_matrix, ppi_matrix, step_print=True):
-        '''Run panda algorithm.'''
+    def puma_loop(self, correlation_matrix, motif_matrix, ppi_matrix, step_print=True):
+        '''Run Puma algorithm.'''
 
         def normalize_network(x):
             mean_col = np.mean(x, axis=0)
@@ -157,7 +157,7 @@ class Panda(object):
             np.fill_diagonal(diagonal_matrix, diagonal_fill)
             return diagonal_matrix
 
-        panda_loop_time = time.time()
+        puma_loop_time = time.time()
         motif_matrix = normalize_network(motif_matrix)
         ppi_matrix = normalize_network(ppi_matrix)
         TFCoopInit = ppi_matrix.copy()  # ALE
@@ -208,42 +208,42 @@ class Panda(object):
             if step_print:
                 print('step: {}, hamming: {}'.format(step, hamming))
             step = step + 1
-        print('running panda took: %s seconds' % (time.time() - panda_loop_time))
+        print('running Puma took: %s seconds' % (time.time() - puma_loop_time))
         return motif_matrix
 
-    def __panda_results_data_frame(self):
+    def __puma_results_data_frame(self):
         '''Results to data frame.'''
         tfs = np.tile(self.unique_tfs, (len(self.gene_names), 1)).flatten()
         genes = np.tile(self.gene_names, (len(self.unique_tfs), 1)).transpose().flatten()
         motif = self.motif_matrix.transpose().flatten()
-        force = self.panda_network.transpose().flatten()
-        self.flat_panda_network = force
-        self.export_panda_results = pd.DataFrame({'tf': tfs, 'gene': genes, 'motif': motif, 'force': force})
-        self.export_panda_results = self.export_panda_results[['tf', 'gene', 'motif', 'force']]
+        force = self.puma_network.transpose().flatten()
+        self.flat_puma_network = force
+        self.export_puma_results = pd.DataFrame({'tf': tfs, 'gene': genes, 'motif': motif, 'force': force})
+        self.export_puma_results = self.export_puma_results[['tf', 'gene', 'motif', 'force']]
         return None
 
     def __pearson_results_data_frame(self):
         '''Results to data frame.'''
         genes_1 = np.tile(self.gene_names, (len(self.gene_names), 1)).flatten()
         genes_2 = np.tile(self.gene_names, (len(self.gene_names), 1)).transpose().flatten()
-        self.flat_panda_network = self.panda_network.transpose().flatten()
-        self.export_panda_results = pd.DataFrame({'tf': genes_1, 'gene': genes_2, 'force': self.flat_panda_network})
-        self.export_panda_results = self.export_panda_results[['tf', 'gene', 'force']]
+        self.flat_puma_network = self.puma_network.transpose().flatten()
+        self.export_puma_results = pd.DataFrame({'tf': genes_1, 'gene': genes_2, 'force': self.flat_puma_network})
+        self.export_puma_results = self.export_puma_results[['tf', 'gene', 'force']]
         return None
 
-    def save_panda_results(self, file='panda.pairs'):
+    def save_puma_results(self, file='puma.pairs'):
         '''Write results to file.'''
-        self.export_panda_results.to_csv(file, index=False, header=False, sep="\t")
+        self.export_puma_results.to_csv(file, index=False, header=False, sep="\t")
         return None
 
-    def return_panda_indegree(self):
-        '''Return Panda indegree.'''
-        subset_indegree = self.export_panda_results[[1, 3]]
-        self.panda_indegree = subset_indegree.groupby('gene').sum()
-        return self.panda_indegree
+    def return_puma_indegree(self):
+        '''Return Puma indegree.'''
+        subset_indegree = self.export_puma_results[[1, 3]]
+        self.puma_indegree = subset_indegree.groupby('gene').sum()
+        return self.puma_indegree
 
-    def return_panda_outdegree(self):
-        '''Return Panda outdegree.'''
-        subset_outdegree = self.export_panda_results[[0, 3]]
-        self.panda_outdegree = subset_outdegree.groupby('tf').sum()
-        return self.panda_outdegree
+    def return_puma_outdegree(self):
+        '''Return Puma outdegree.'''
+        subset_outdegree = self.export_puma_results[[0, 3]]
+        self.puma_outdegree = subset_outdegree.groupby('tf').sum()
+        return self.puma_outdegree

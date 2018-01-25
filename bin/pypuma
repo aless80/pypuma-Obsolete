@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 '''
-Run PyPanda algorithm from the command line.
+Run pypuma algorithm from the command line.
 '''
 
 import sys
 import getopt
 import pandas as pd
-from pypanda import Panda
-from pypanda import Lioness
+from pypuma import Puma
+from pypuma import Lioness
 
 def main(argv):
     '''
@@ -32,7 +32,7 @@ def main(argv):
     remove_missing = False
     output_file = None
     lioness_output_file = None
-    help_text = 'pypanda options:\n\
+    help_text = 'pypuma options:\n\
                 \t-e (required)<expression_data.txt>\n\
                 \t-m (optional, when not provided Pearson correlation network is used)<motif_data.txt>\n\
                 \t-p (optional)<ppi_data.txt>\n\
@@ -83,12 +83,12 @@ def main(argv):
         print help_text
         sys.exit()
 
-    #run panda
+    #run puma
     # Ale: s1, s2, t1, t2 placed before ppi matrix because of syntax (ppi is by default None, and therefore must go after s1, s2, t1, t2 which as far as i know have no default values)
-    p = Panda(expression_data, motif, s1, s2, t1, t2, ppi, remove_missing=remove_missing)
+    p = Puma(expression_data, motif, s1, s2, t1, t2, ppi, remove_missing=remove_missing)
     #save results
-    p.save_panda_results(file=output_file)
-    print 'Finished Panda run...'
+    p.save_puma_results(file=output_file)
+    print 'Finished Puma run...'
     #run lioness
     if lioness_output_file!=None:
         l = Lioness(p)

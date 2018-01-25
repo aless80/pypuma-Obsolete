@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from .panda import Panda
+from .puma import Puma
 
 import time
 import pandas as pd
@@ -8,26 +8,26 @@ import numpy as np
 import functools
 import math
 
-class Lioness(Panda):
-    def __init__(self, panda_data):
-        '''Import values from panda for lioness.'''
-        # Ale passing s1, s2, t1, t2 properties of Panda to this class. I think it makes sense because the same is done for the matrices
-        self.s1 = panda_data.s1
-        self.s2 = panda_data.s2
-        self.t1 = panda_data.t1
-        self.t2 = panda_data.t2
+class Lioness(Puma):
+    def __init__(self, puma_data):
+        '''Import values from puma for lioness.'''
+        # Ale passing s1, s2, t1, t2 properties of Puma to this class. I think it makes sense because the same is done for the matrices
+        self.s1 = puma_data.s1
+        self.s2 = puma_data.s2
+        self.t1 = puma_data.t1
+        self.t2 = puma_data.t2
 
-        self.export_panda_results = panda_data.export_panda_results
-        self.expression_matrix = panda_data.expression_matrix
-        self.motif_data = panda_data.motif_data
+        self.export_puma_results = puma_data.export_puma_results
+        self.expression_matrix = puma_data.expression_matrix
+        self.motif_data = puma_data.motif_data
         if self.motif_data is not None:
-            self.motif_matrix = panda_data.motif_matrix
-            self.ppi_matrix = panda_data.ppi_matrix
-            self.num_genes = panda_data.num_genes
-            self.num_tfs = panda_data.num_tfs
-        self.panda_network = panda_data.panda_network
-        self.expression_data = panda_data.expression_data
-        self.flat_panda_network = panda_data.flat_panda_network
+            self.motif_matrix = puma_data.motif_matrix
+            self.ppi_matrix = puma_data.ppi_matrix
+            self.num_genes = puma_data.num_genes
+            self.num_tfs = puma_data.num_tfs
+        self.puma_network = puma_data.puma_network
+        self.expression_data = puma_data.expression_data
+        self.flat_puma_network = puma_data.flat_puma_network
         #run lioness
         self.__lioness()
         #create result data frame
@@ -35,18 +35,18 @@ class Lioness(Panda):
         return None
     def __lioness(self):
         '''Run lioness on network.'''
-        def lioness_loop(condition, number_conditions, flat_panda_network, expression_matrix, motif_matrix, ppi_matrix):
+        def lioness_loop(condition, number_conditions, flat_puma_network, expression_matrix, motif_matrix, ppi_matrix):
             '''Lioness algorithm.'''
             idx = range(0, number_conditions)
             idx.remove(condition)
             subset_expression_matrix = expression_matrix[:,idx]
             correlation_matrix = np.corrcoef(subset_expression_matrix)
             if self.motif_data is not None:
-                subset_panda_network = self.panda_loop(correlation_matrix, motif_matrix,  ppi_matrix)
+                subset_puma_network = self.puma_loop(correlation_matrix, motif_matrix,  ppi_matrix)
             else:
-                subset_panda_network = correlation_matrix
-            subset_panda_network = subset_panda_network.transpose().flatten()
-            lioness_network = number_conditions*(flat_panda_network-subset_panda_network)+subset_panda_network
+                subset_puma_network = correlation_matrix
+            subset_puma_network = subset_puma_network.transpose().flatten()
+            lioness_network = number_conditions*(flat_puma_network-subset_puma_network)+subset_puma_network
             return lioness_network
         lioness_loop_time = time.time()
         number_conditions = self.expression_matrix.shape[1]
@@ -61,14 +61,14 @@ class Lioness(Panda):
             if self.motif_data is not None:
                 self.lioness_network[:,condition] = lioness_loop(condition = condition,
                                                             number_conditions = number_conditions,
-                                                            flat_panda_network = self.flat_panda_network,
+                                                            flat_puma_network = self.flat_puma_network,
                                                             expression_matrix = self.expression_matrix,
                                                             motif_matrix = self.motif_matrix,
                                                             ppi_matrix = self.ppi_matrix)
             else:
                 self.lioness_network[:,condition] = lioness_loop(condition = condition,
                                                             number_conditions = number_conditions,
-                                                            flat_panda_network = self.flat_panda_network,
+                                                            flat_puma_network = self.flat_puma_network,
                                                             expression_matrix = self.expression_matrix,
                                                             motif_matrix = None,
                                                             ppi_matrix = None)
