@@ -52,20 +52,29 @@ Hamming distance is calculated every iteration.
 ### Installation
 PyPanda requires Python 2.7. We recommand the following commands to install PyPanda (on Ubuntu and Debian derived systems, also works on OSX):
 #### Using a virtual environment
-This is the cleanest installation method. First create a folder for the [python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+Using [python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) is the cleanest installation method. 
 
+Cloning git and setting up the [python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/):
 ```no-highlight
 pip install --user pipenv   #Make sure you have Pipenv
 git clone https://github.com/aless80/pypuma.git
-cd pypuma 					#Use the cloned git folder for the virtual environment
+cd pypuma 	#Use the cloned git folder for the virtual environment
 ```
-
+Installing pypuma:
 ```no-highlight
-virtualenv tantrix2
-source tantrix2/bin/activate
-(api_venv)$ pip install requests #note: no sudo!
+virtualenv pypuma
+source pypuma/bin/activate
+(pypuma)$ pip install requests #note: no sudo!
+(pypuma)$ pip install -r requirements.txt
+(pypuma)$ deactivate	#Exit
+rm -rf 
 ```
 
+Uninstall:
+```no-highlight
+(pypuma)$ deactivate	#Exit
+rm -rf 
+```
 #### With root access
 ```no-highlight
 git clone https://github.com/davidvi/pypanda.git
