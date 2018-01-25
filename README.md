@@ -1,9 +1,10 @@
 ## TODO
 s1,s2,t1,t2 are hardcoded  
 rename scripts from panda to puma and rebuild the setup
-rewrite this README  
+rename all 'panda' to 'puma' int his README and in all scripts
+rewrite this README. Anaconda nice to mention
 
-The main script is still called pypanda but if you after the install see s1,s2, t1,t2 in the command options for this:  
+The main script is still called pyp but if you after the install see s1,s2, t1,t2 in the command options for this:  
 pypanda --help  
 you can make sure this is pypuma
 
@@ -24,33 +25,33 @@ _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biolog
 ### Panda algorithm
 To find agreement between the three input networks first the responsibility (R) is calculated.  
 
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/responsibility.png" height="30">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/responsibility.png" height="30">  
 
 Thereafter availability (A) is calculated.  
 
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/availability.png" height="30">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/availability.png" height="30">  
 
 Availability and responsibility are combined with the following formula.  
 
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/combine.png" height="30">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/combine.png" height="30">  
 
 Protein cooperativity and gene co-regulatory networks are updated.  
 
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/cooperativity.png" height="30">  
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/co-regulatory.png" height="30">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/cooperativity.png" height="30">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/co-regulatory.png" height="30">  
 
 P and C are updated to satisfy convergence.  
 
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/p.png" height="30">  
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/c.png" height="30">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/p.png" height="30">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/c.png" height="30">  
 
 Hamming distance is calculated every iteration.  
 
-<img src="https://github.com/davidvi/pypanda/raw/develop/img/hamming.png" height="40">  
+<img src="https://github.com/aless80/pypuma/raw/develop/img/hamming.png" height="40">  
 
 
 ### Installation
-PyPanda requires Python 2.7. We recommand the following commands to install PyPanda (on Ubuntu and Debian derived systems, also works on OSX):
+PyPuma requires Python 2.7. We recommand the following commands to install PyPuma (on Ubuntu and Debian derived systems, also works on OSX):
 #### Using a virtual environment
 Using [python virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) is the cleanest installation method. 
 
@@ -73,32 +74,27 @@ Complete uninstall:
 (pypuma)$ deactivate	#Exit
 rm -rf ....
 ```
-#### With root access
+
+#### Using pip on the user's install directory
 ```no-highlight
-git clone https://github.com/davidvi/pypanda.git
-cd pypanda
-sudo python setup.py install
-```
-#### Without root access
-```no-highlight
-git clone https://github.com/davidvi/pypanda.git
-cd pypanda
+git clone https://github.com/aless80/pypuma.git
+cd pypuma
 python setup.py install --user
-#to run from the command line you will need to make pypanda executable and add the bin directory to your PATH:
+#to run from the command line you will need to make pypuma executable and add the bin directory to your PATH:
 cd bin
-chmod +x pypanda
+chmod +x pypuma
 echo "$(pwd):PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
-To run PyPanda from Windows (tested on Windows 10) install Git (https://git-scm.com/downloads) and Anaconda Python2.7 (https://www.continuum.io/downloads) and from the Anaconda Prompt run:
+To run PyPuma from Windows (tested on Windows 10) install Git (https://git-scm.com/downloads) and Anaconda Python2.7 (https://www.continuum.io/downloads) and from the Anaconda Prompt run:
 ```no-highlight
-git clone https://github.com/davidvi/pypanda.git
-cd pypanda
+git clone https://github.com/aless80/pypuma.git
+cd pypuma
 python setup.py install
 ```
 ### Usage
 #### Run from the terminal
-PyPanda can be run directly from the terminal with the following options:
+PyPuma can be run directly from the terminal with the following options:
 ```
 -h help
 -e (required) expression values
@@ -108,20 +104,20 @@ PyPanda can be run directly from the terminal with the following options:
 -o (required) output file
 -q (optional) output lioness single sample network
 ```
-To run PyPanda on the example data:
+To run PyPuma on the example data:
 ```
-$ pypanda -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_panda.txt -q test_lioness.txt
+$ pypuma -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_panda.txt -q test_lioness.txt
 ```
 To reconstruct a single sample Lioness Pearson correlation network:
 ```
-$ pypanda -e ToyData/ToyExpressionData.txt -o test_panda_pearson.txt -q test_lioness_pearson.txt
+$ pypuma -e ToyData/ToyExpressionData.txt -o test_panda_pearson.txt -q test_lioness_pearson.txt
 ```
 #### Run from python
 Fire up your python shell or ipython notebook. 
-Import PyPanda library:
+Import PyPuma library:
 ```python
-from pypanda import Panda
-from pypanda import Lioness
+from pypuma import Puma
+from pypuma import Lioness
 import pandas as pd
 ```
 Run Panda algorithm, leave out motif and PPI data to use Pearson correlation network:
