@@ -103,10 +103,14 @@ PyPuma can be run directly from the terminal with the following options:
 -f (optional) remove missing values (default is Fales)
 -o (required) output file
 -q (optional) output lioness single sample network
+-s1 (required) s1
+-s2 (required) s2
+-t1 (required) t1
+-t2 (required) t2
 ```
 To run PyPuma on the example data:
 ```
-$ pypuma -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_puma.txt -q test_lioness.txt
+$ pypuma -e ToyData/ToyExpressionData.txt -m ToyData/ToyMotifData.txt -p ToyData/ToyPPIData.txt -f True -o test_puma.txt -q test_lioness.txt -s1 0 -s2 1 -t1 1 -t2 2
 ```
 To reconstruct a single sample Lioness Pearson correlation network:
 ```

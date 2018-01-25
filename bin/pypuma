@@ -23,9 +23,6 @@ def main(argv):
     '''
     #create variables
 
-    # Ale weet ik veel
-    s1,s2,t1,t2 = 0,1,1,2
-
     expression_data = None
     motif = None
     ppi = None
