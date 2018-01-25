@@ -33,16 +33,16 @@ def main(argv):
     lioness_output_file = None
     # Ale added s1,s2,t1,t2
     help_text = 'pypanda options:\n\
-                \t-e (required)<expression_data.txt>\n\
-                \t-m (optional, when not provided Pearson correlation network is used)<motif_data.txt>\n\
-                \t-p (optional)<ppi_data.txt>\n\
-                \t-f (optional)<remove missing (True/False)>\n\
-                \t-o (required)<output_file_name>\n\
-                \t--s1 (required)<s1>\n\
-                \t--s2 (required)<s2>\n\
-                \t--t1 (required)<t1>\n\
-                \t--t2 (required)<t2>\n\
-                \t-q (optional)<lioness_output_file_name>'
+                \t-e, --expression (required)<expression_data.txt>\n\
+                \t-m, --motif (optional, when not provided Pearson correlation network is used)<motif_data.txt>\n\
+                \t-p, --ppi (optional)<ppi_data.txt>\n\
+                \t-f, --remove (optional)<remove missing (True/False)>\n\
+                \t-o, --output (required)<output_file_name>\n\
+                \t-s, --s1 (required)<s1>\n\
+                \t-x, --s2 (required)<s2>\n\
+                \t-t, --t1 (required)<t1>\n\
+                \t-z, --t2 (required)<t2>\n\
+                \t-q, --outputlioness (optional)<lioness_output_file_name>'
     #get input options
     try:
         # Ale added s1,s2,t1,t2.
