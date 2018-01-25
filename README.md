@@ -18,7 +18,7 @@ _Glass K, Huttenhower C, Quackenbush J, Yuan GC. Passing Messages Between Biolog
 * [Usage](#usage)  
 * [python](#run-from-python)
 * [Terminal](#run-from-the-terminal)
-* [Results] (#results)
+* [Results](#results)
 
 ### Panda algorithm
 To find agreement between the three input networks first the responsibility (R) is calculated.  
