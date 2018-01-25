@@ -3,7 +3,7 @@ s1,s2,t1,t2 are hardcoded
 rename scripts from panda to puma and rebuild the setup
 rewrite this README  
 
-The main script is still called pypanda but if you see s1,s2 t1,t2 with this:  
+The main script is still called pypanda but if you see s1,s2, t1,t2 in the command options for this:  
 pypanda --help  
 you can make sure this is pypuma
 
