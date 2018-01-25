@@ -11,6 +11,12 @@ import math
 class Lioness(Panda):
     def __init__(self, panda_data):
         '''Import values from panda for lioness.'''
+        # Ale passing s1, s2, t1, t2 properties of Panda to this class. I think it makes sense because the same is done for the matrices
+        self.s1 = panda_data.s1
+        self.s2 = panda_data.s2
+        self.t1 = panda_data.t1
+        self.t2 = panda_data.t2
+
         self.export_panda_results = panda_data.export_panda_results
         self.expression_matrix = panda_data.expression_matrix
         self.motif_data = panda_data.motif_data
@@ -36,7 +42,7 @@ class Lioness(Panda):
             subset_expression_matrix = expression_matrix[:,idx]
             correlation_matrix = np.corrcoef(subset_expression_matrix)
             if self.motif_data is not None:
-                subset_panda_network = self.panda_loop(correlation_matrix, motif_matrix, ppi_matrix)
+                subset_panda_network = self.panda_loop(correlation_matrix, motif_matrix,  ppi_matrix)
             else:
                 subset_panda_network = correlation_matrix
             subset_panda_network = subset_panda_network.transpose().flatten()

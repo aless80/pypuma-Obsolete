@@ -12,7 +12,7 @@ from pypanda import Lioness
 
 def main(argv):
     '''
-    Run pypanda.
+    Run pypuma.
     -h help
     -e (required) expression values
     -m (optional) pair file of motif edges, when not provided analysis continues with pearson correlation matrix
@@ -22,6 +22,10 @@ def main(argv):
     -q (optional) output lioness single sample network
     '''
     #create variables
+
+    # Ale weet ik veel
+    s1,s2,t1,t2 = 0,1,1,2
+
     expression_data = None
     motif = None
     ppi = None
@@ -34,10 +38,15 @@ def main(argv):
                 \t-p (optional)<ppi_data.txt>\n\
                 \t-f (optional)<remove missing (True/False)>\n\
                 \t-o (required)<output_file_name>\n\
-                \t-q (optional)<lioness_output_file_name>'
+                \t-s1 (required)<s1>\n\
+                \t-s2 (required)<s2>\n\
+                \t-t1 (required)<t1>\n\
+                \t-t2 (required)<t2>\n\
+                \t-q (optional)<lioness_output_file_name>\n\
+                 '
     #get input options
     try:
-        opts, args = getopt.getopt(argv, 'he:m:p:f:o:q:', ['help', 'expression=', 'motif=', 'ppi=', 'remove=', 'out='])
+        opts, args = getopt.getopt(argv, 'he:m:p:f:o:q:', ['help', 'expression=', 'motif=', 'ppi=', 'remove=', 'out=', 's1=', 's2=', 't1=', 't2='])
     except getopt.GetoptError:
         print help_text
         sys.exit()
@@ -58,6 +67,14 @@ def main(argv):
                 remove_missing = False
         if opt == '-o':
             output_file = arg
+        if opt == '-s1':
+            s1 = arg
+        if opt == '-s2':
+            s2 = arg
+        if opt == '-t1':
+            t1 = arg
+        if opt == '-t2':
+            t2 = arg
         if opt == '-q':
             lioness_output_file = arg
     #check if required options are given
@@ -67,7 +84,8 @@ def main(argv):
         sys.exit()
 
     #run panda
-    p = Panda(expression_data, motif, ppi, remove_missing=remove_missing)
+    # Ale: s1, s2, t1, t2 placed before ppi matrix because of syntax (ppi is by default None, and therefore must go after s1, s2, t1, t2 which as far as i know have no default values)
+    p = Panda(expression_data, motif, s1, s2, t1, t2, ppi, remove_missing=remove_missing)
     #save results
     p.save_panda_results(file=output_file)
     print 'Finished Panda run...'
