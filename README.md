@@ -70,10 +70,10 @@ source pypuma/bin/activate
 rm -rf 
 ```
 
-Uninstall:
+Complete uninstall:
 ```no-highlight
 (pypuma)$ deactivate	#Exit
-rm -rf 
+rm -rf ....
 ```
 #### With root access
 ```no-highlight
