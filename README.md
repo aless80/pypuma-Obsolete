@@ -1,3 +1,12 @@
+## TODO
+s1,s2,t1,t2 are hardcoded
+rename scripts from panda to puma
+build the setup
+rewrite this README
+
+
+
+
 ## PyPanda (Python Panda)
 Python implementation of PANDA (Passing Attributes between Networks for Data Assimilation)  
 
