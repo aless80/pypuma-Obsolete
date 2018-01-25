@@ -58,16 +58,16 @@ Cloning git and setting up the [python virtual environment](http://docs.python-g
 ```no-highlight
 pip install --user pipenv   #Make sure you have Pipenv
 git clone https://github.com/aless80/pypuma.git
-cd pypuma 	#Use the cloned git folder for the virtual environment
+cd pypuma
+virtualenv pypumaenv #Create a folder for the virtual environment inside the cloned git folder 
+source pypumaenv/bin/activate
 ```
-Installing pypuma:
+Installing and running pypuma:
 ```no-highlight
-virtualenv pypuma
-source pypuma/bin/activate
-(pypuma)$ pip install requests #note: no sudo!
-(pypuma)$ pip install -r requirements.txt
-(pypuma)$ deactivate	#Exit
-rm -rf 
+(pypumaenv)$ pip install -r requirements.txt
+(pypumaenv)$ 
+(pypumaenv)$ deactivate	#Exit
+rm -rf ./pypumaenv
 ```
 
 Complete uninstall:
