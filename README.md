@@ -102,12 +102,11 @@ PyPandas can be run directly from the terminal with the following options:
 -p, --ppi (optional) pair file of PPI edges
 -f, --remove (optional) remove missing values (default is Fales)
 -o, --output (required) output file
+-q, --outputlioness (optional) output lioness single sample network
 -s, --s1 (required) s1
 -x, --s2 (required) s2
 -t, --t1 (required) t1
 -z, --t2 (required) t2
--q, --outputlioness (optional) output lioness single sample network
-
 ```
 To run PyPuma on the example data:
 ```
