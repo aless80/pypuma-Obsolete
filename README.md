@@ -1,5 +1,7 @@
+Forked from David/pypanda. Now I switched to the more efficient QuackenbushLab/pypandas
+
 ## TODO
-s1,s2,t1,t2 are hardcoded  
+
 I renamed scripts from panda to puma and rebuild the setup. I might have forgotten something somewhere  
 Stuff is still called pandas in scripts and in this README.  
 rewrite this README. Anaconda nice to mention. Update the example from pandas to puma. update citations and descriptions. check all links. figures!  
