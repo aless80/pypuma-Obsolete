@@ -15,6 +15,10 @@ from pypanda import Lioness
 
 def main(argv):
     '''
+
+    -e ../ToyData/ToyExpressionData.txt -m ../ToyData/ToyMotifData.txt -p ../ToyData/ToyPPIData.txt -f True -o test_puma.txt -q test_lioness.txt -i ../ToyData/ALEToyMiRList.txt
+
+
     Run pypanda.
     -h help
     -e (required) expression values
@@ -38,16 +42,13 @@ def main(argv):
                 \t-p, --ppi (optional)<ppi_data.txt>\n\
                 \t-f, --remove (optional)<remove missing (True/False)>\n\
                 \t-o, --output (required)<output_file_name>\n\
-                \t-s, --s1 (required)<s1>\n\
-                \t-x, --s2 (required)<s2>\n\
-                \t-t, --t1 (required)<t1>\n\
-                \t-z, --t2 (required)<t2>\n\
+                \t-i, --mir (optional)<ALEToyMiRList.txt>\n\
                 \t-q, --outputlioness (optional)<lioness_output_file_name>'
     #get input options
     try:
         # Ale added s1,s2,t1,t2.
         # Ale correct this: for flags to be really optional eg -m and --motif, they should be m (no colon) and 'motif' (no equal sign).
-        opts, args = getopt.getopt(argv, 'he:m:p:f:o:q:s:x:t:z:', ['help', 'expression=', 'motif=', 'ppi=', 'remove=', 'out=', 'outputlioness', 's1=', 's2=', 't1=', 't2='])
+        opts, args = getopt.getopt(argv, 'he:m:p:f:o:q:i:', ['help', 'expression=', 'motif=', 'ppi=', 'remove=', 'out=', 'outputlioness', 'mir='])
     except getopt.GetoptError:
         print(help_text)
         sys.exit()
@@ -72,14 +73,8 @@ def main(argv):
         elif opt in ('-q', '--outputlioness'):
             lioness_output_file = arg
         # Ale
-        elif opt in ('-s', '--s1'):
-            s1 = int(arg)
-        elif opt in ('-x', '--s2'):
-            s2 = int(arg)
-        elif opt in ('-t', '--t1'):
-            t1 = int(arg)
-        elif opt in ('-z', '--t2'):
-            t2 = int(arg)
+        elif opt in ('-i', '--mir'):
+            mir = arg
     #check if required options are given
     if expression_data == None or output_file == None:
         print('Missing input')
@@ -88,7 +83,7 @@ def main(argv):
 
     # Ale: s1, s2, t1, t2 placed before ppi matrix because of syntax (ppi is by default None, and therefore must go after s1, s2, t1, t2 which as far as i know have no default values)
     #run panda
-    p = Panda(expression_data, motif, s1, s2, t1, t2, ppi, remove_missing=remove_missing)
+    p = Panda(expression_data, motif, ppi, remove_missing=remove_missing, mir_file=mir )
     #save results
     p.save_panda_results(file=output_file)
     print('Finished Panda run...')

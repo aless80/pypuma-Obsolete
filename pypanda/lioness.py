@@ -11,6 +11,7 @@ import math
 class Lioness(Panda):
     def __init__(self, panda_data):
         # Ale passing s1, s2, t1, t2 properties of Puma to this class. I think it makes sense because the same is done for the matrices
+        self.runPuma = panda_data.runPuma
         self.s1 = panda_data.s1
         self.s2 = panda_data.s2
         self.t1 = panda_data.t1

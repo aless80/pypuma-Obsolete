@@ -9,15 +9,8 @@ import math
 
 class Panda(object):
     '''Import and run PANDA algorithm.'''
-    def __init__(self, expression_file, motif_file, s1, s2, t1, t2, ppi_file=None, remove_missing=False):
+    def __init__(self, expression_file, motif_file, ppi_file=None, remove_missing=False, mir_file=None):
         '''Load expression, motif and optional ppi data.'''
-
-        # Ale: store s1, s2, t1, t2 and hope lioness uses the same instance of this Puma class
-        self.s1 = s1
-        self.s2 = s2
-        self.t1 = t1
-        self.t2 = t2
-
         #load data from provided files
         self.expression_data = pd.read_table(expression_file, sep='\t', header=None, comment='#')
         if motif_file is not None:
@@ -28,7 +21,7 @@ class Panda(object):
             self.ppi_data = pd.read_table(ppi_file, sep='\t', header=None, comment='#')
         else:
             self.ppi_data = None
-        #remove missing befor analysis
+        #remove missing before analysis
         if remove_missing and motif_file is not None:
             self.__remove_missing()
         #expression data to matrix
@@ -41,7 +34,39 @@ class Panda(object):
             self.ppi_matrix = np.identity(self.num_tfs)
             if self.ppi_data is not None:
                 self.__ppi_data_to_matrix()
-        #pearson correlation
+
+        # Ale: get s1, s2, t1, t2 from mir_file
+        self.runPuma = False
+        if mir_file:
+            '''
+            % if mir_file exists (PUMA), check indices of miRs in the PPI data
+            #[TF, gene, weight]=textread(motif_file, '%s%s%f');
+            #TFNames=unique(TF); 
+            #NumTFs=length(TFNames);          
+            [~, k] = ismember(miR, TFNames); #k contains the lowest index in TFNames for each value in miR that is a member of TFNames.
+            m = (1:NumTFs)'; #prime hoeft niet
+            [s1, s2] = ndgrid(k, m);  #check np.meshgrid
+            #s1= [k1 k1 k1 .. len(m) times; k2 k2 k2 ..; up to len(k)]
+            #s2= [m1 m2 m3 .. len(m) times; m1 m2 m3 ..; up to len(k)]
+            [t1, t2] = ndgrid(m, k);
+            '''
+            with open(mir_file, "r") as f:
+                miR = f.read().splitlines()
+            TFNames = self.unique_tfs
+            sort_idx = np.argsort(TFNames)
+            #index 87 is out of bounds for axis 1 with size 87 because it is not present! Catch that
+            k = sort_idx[np.searchsorted(TFNames, miR, sorter=sort_idx)]
+            #[~, k] = ismember(miR, TFNames);  # k contains the lowest index in TFNames for each value in miR that is a member of TFNames.
+            m = range(self.num_tfs) #this starts from 0, matlab from 1
+            self.s1, self.s2 = np.meshgrid(k, m)
+            self.s1, self.s2 = self.s1.T, self.s2.T
+            self.t1, self.t2 = np.meshgrid(m, k)
+            self.t1, self.t2 = self.t1.T, self.t2.T
+            self.runPuma = True
+
+
+
+        #Pearson correlation
         self.correlation_matrix = np.corrcoef(self.expression_matrix)
         #run panda algorithm
         if self.motif_data is not None:
@@ -159,31 +184,23 @@ class Panda(object):
             ppi_matrix = (1-alpha)*ppi_matrix+alpha*ppi
 
             #Ale
-            TFCoopDiag = ppi_matrix.diagonal()
-            # Ale I think this hassle with sub2ind is not needed at all. can the ppi_matrix/TFCoop change shape? Here they are square..
-            # TFCoop(sub2ind([NumTFs, NumTFs], s1, s2)) = TFCoopInit(sub2ind([NumTFs, NumTFs], s1, s2)); % PUMA
-            # sub2ind takes square matrix with NumTFs size, then gets the linear index for element (s1,s2). use np.ravel_multi_index
-            # np.ravel_multi_index((s1, s2), (self.num_tfs, self.num_tfs))
-            ppi_matrix[self.s1][self.s2] = TFCoopInit[self.s1][self.s2]
-            ppi_matrix[self.t1][self.t2] = TFCoopInit[self.t1][self.t2]
-            np.fill_diagonal(ppi_matrix, TFCoopDiag)
-
-            '''
-            #PPI=Tfunction(RegNet, RegNet');
-            #PPI=UpdateDiagonal(PPI, NumTFs, alpha, step);
-            #TFCoop=(1-alpha)*TFCoop+alpha*PPI;
-
-            #TFCoop -> ppi_matrix in python
-            TFCoopDiag=diag(TFCoop);  #ppi_matrix.diagonal()
-            % PUMA
-            TFCoop(sub2ind([NumTFs, NumTFs],s1,s2))=TFCoopInit(sub2ind([NumTFs, NumTFs],s1,s2)); % PUMA
-            TFCoop(sub2ind([NumTFs, NumTFs],t1,t2))=TFCoopInit(sub2ind([NumTFs, NumTFs],t1,t2)); % PUMA
-            TFCoop(1:(size(TFCoop,1)+1):end) =TFCoopDiag; % PUMA
-
-            #CoReg2=Tfunction(RegNet', RegNet);
-            #CoReg2=UpdateDiagonal(CoReg2, NumGenes, alpha, step);
-            #GeneCoReg=(1-alpha)*GeneCoReg+alpha*CoReg2;
-            '''
+            if self.runPuma:
+                TFCoopDiag = ppi_matrix.diagonal()
+                # Ale I think this hassle with sub2ind is not needed at all. can the ppi_matrix/TFCoop change shape? Here they are square..
+                # TFCoop(sub2ind([NumTFs, NumTFs], s1, s2)) = TFCoopInit(sub2ind([NumTFs, NumTFs], s1, s2)); % PUMA
+                # sub2ind takes square matrix with NumTFs size, then gets the linear index for element (s1,s2). use np.ravel_multi_index
+                # np.ravel_multi_index((s1, s2), (self.num_tfs, self.num_tfs))
+                ppi_matrix[self.s1][self.s2] = TFCoopInit[self.s1][self.s2]
+                ppi_matrix[self.t1][self.t2] = TFCoopInit[self.t1][self.t2]
+                np.fill_diagonal(ppi_matrix, TFCoopDiag)
+                ''' Corresponding code in Matlab: 
+                #TFCoop -> ppi_matrix in python
+                TFCoopDiag=diag(TFCoop);  #ppi_matrix.diagonal()
+                % PUMA
+                TFCoop(sub2ind([NumTFs, NumTFs],s1,s2))=TFCoopInit(sub2ind([NumTFs, NumTFs],s1,s2)); % PUMA
+                TFCoop(sub2ind([NumTFs, NumTFs],t1,t2))=TFCoopInit(sub2ind([NumTFs, NumTFs],t1,t2)); % PUMA
+                TFCoop(1:(size(TFCoop,1)+1):end) =TFCoopDiag; % PUMA
+                '''
 
             motif = t_function(motif_matrix.transpose(), motif_matrix)
             motif = update_diagonal(motif, self.num_genes, alpha, step)
